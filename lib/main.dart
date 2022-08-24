@@ -6,7 +6,10 @@ void main() => runApp(GetMaterialApp(home:Home()));
 class Controller extends GetxController{
   var count = 0.obs;
   increment() => count++;
+  decrement() => count--;
+
 }
+
 
 
 
@@ -25,10 +28,22 @@ class Home extends StatelessWidget {
       appBar: AppBar(title: Obx(() => Text("Clicks: ${c.count}"))),
 
       // Replace the 8 lines Navigator.push by a simple Get.to(). You don't need context
-      body: Center(child: ElevatedButton(
-              child: const Text("Go to Other"), onPressed: () => Get.to(Other()))),
-      floatingActionButton:
-          FloatingActionButton(onPressed: c.increment, child: const Icon(Icons.add)));
+      body: Center(child: Column(
+        children: [
+          ElevatedButton(
+                  child: const Text("Go to Other"), onPressed: () => Get.to(Other())),
+          // ElevatedButton(
+          //          onPressed:c.decrement(),child: const Text("Decrease")),
+          ElevatedButton(
+                   onPressed:()=>c.increment(),child: const Text("Increase")),
+
+          ElevatedButton(
+                   onPressed:()=>c.decrement(),child: const Text("Decrease")),
+        ],
+      )),
+      
+          );
+          
   }
 }
 
@@ -41,7 +56,7 @@ class Other extends StatelessWidget {
   @override
   Widget build(context){
      // Access the updated count variable
-     return Scaffold(body: Center(child: Text("${c.count}")));
+     return Scaffold(body: Center(child: Text("${c.count}", style:  const TextStyle(fontSize: 50),)));
   }
 }
 
